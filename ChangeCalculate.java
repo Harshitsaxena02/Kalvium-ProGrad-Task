@@ -1,10 +1,10 @@
-import java.util.ArrayList;
+import java.util.*;
 
-public class ChangeCalculate {
+public class Main {
   private int[] coinDenominations;
   private int[] coinCounts;
 
-  public ChangeCalculate(int[] coinDenominations, int[] coinCounts) {
+  public Main(int[] coinDenominations, int[] coinCounts) {
     this.coinDenominations = coinDenominations;
     this.coinCounts = coinCounts;
   }
@@ -16,7 +16,6 @@ public class ChangeCalculate {
       while (changeAmount >= coinValue && coinCounts[i] > 0) {
         changeAmount -= coinValue;
         change.add(coinValue);
-        coinCounts[i]--;
       }
     }
     if (changeAmount != 0) {
@@ -32,14 +31,46 @@ public class ChangeCalculate {
   }
 
   public static void main(String[] args) {
+      Scanner sc = new Scanner(System.in);
+      int num=43;
     int[] britishCoinDenominations = {1, 2, 5, 10, 20, 50};
     int[] britishCoinCounts = {10, 10, 10, 10, 10, 10};
-    ChangeCalculate britishChangeCalculator = new ChangeCalculate(britishCoinDenominations, britishCoinCounts);
-    int[] change = britishChangeCalculator.calculateChange(43);
-    if (change != null) {
-      System.out.println("Change: " + java.util.Arrays.toString(change));
-    } else {
-      System.out.println("Not enough coins to make change.");
+    int[] usCoinDenominations = {1, 5, 10, 25};
+    int[] usCoinCounts = {10, 10, 10, 10};
+    int[] norCoinDenominations = {1, 5, 10, 20};
+    int[] norCoinCounts = {10, 10, 10, 10};
+    Main britishChangeCalculator = new Main(britishCoinDenominations, britishCoinCounts);
+    Main usChangeCalculator = new Main(usCoinDenominations, usCoinCounts);
+    Main norChangeCalculator = new Main(norCoinDenominations, norCoinCounts);
+    System.out.println("Select for British Pound(br), US Dollar(us), Norwegian Krone(nor)");
+    String choose = sc.nextLine();
+    if(choose.equals("br")){
+        int[] change = britishChangeCalculator.calculateChange(num);
+            if (change != null) {
+          System.out.println("Change: " + java.util.Arrays.toString(change));
+        } else {
+          System.out.println("Not enough coins to make change.");
+        }
+    }
+    else if(choose.equals("us")){
+        int[] change = usChangeCalculator.calculateChange(num);
+            if (change != null) {
+          System.out.println("Change: " + java.util.Arrays.toString(change));
+        } else {
+           System.out.println("Not enough coins to make change.");
+        }
+        
+    }
+    else if(choose.equals("nor")){
+    int[] change = norChangeCalculator.calculateChange(num); 
+         if (change != null) {
+          System.out.println("Change: " + java.util.Arrays.toString(change));
+        } else {
+          System.out.println("Not enough coins to make change.");
+        }
+    }
+    else{
+        System.out.println("Wrong input");
     }
   }
 }
